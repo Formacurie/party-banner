@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+
+
+    <style>
+        body {
+            margin: 0;
+            padding: 5%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            background: url('bg.gif') center center fixed;
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        #party-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #party-banner {
+            max-width: 600px;
+            height: 70vh;
+            background-color: #3498db;
+            border-radius: 20px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            animation: zoomInOut 2s ease-in-out infinite;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #party-banner:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        #party-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .icon-container {
+            display: flex;
+            justify-content: space-around;
+            animation: zoomInOut 2s ease-in-out infinite;
+            background-color: #471b4d;
+            width: 100%;
+            margin-top: 2px;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes zoomInOut {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+    </style>
+    <title>Festa Banner</title>
+</head>
+
+<body>
+    <div id="party-container">
+        <div id="party-banner">
+            <img id="banner-image" src="Save the Date.jpg" alt="Banner da Festa">
+        </div>
+        <div class="icon-container">
+            <a href="https://wa.me/5554996828540" target="_blank">
+                <div class="icon"><img src="1384023.png" alt="Ícone 1"></div>
+            </a>
+
+            <a href="https://wa.me/5554999530644" target="_blank">
+                <div class="icon"><img src="1384023.png" alt="Ícone 1"></div>
+            </a>
+
+            <a href="https://wa.me/5554991915283" target="_blank">
+                <div class="icon"><img src="1384023.png" alt="Ícone 1"></div>
+            </a>
+
+            <a href="https://wa.me/5554996228967" target="_blank">
+                <div class="icon"><img src="1384023.png" alt="Ícone 1"></div>
+            </a>
+
+        </div>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="msc4.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var bannerImage = document.getElementById('banner-image');
+            var images = ['Save the Date.jpg', 'Save The Date-2.png']; // Corrigi a definição do array de imagens
+            var currentIndex = 0;
+
+            // Adiciona o elemento de áudio
+            var backgroundMusic = document.getElementById('background-music');
+            var volume = 0.1; // Defina o volume inicial
+
+            function eventLoaded() {
+                bannerImage.src = images[currentIndex];
+                currentIndex = (currentIndex + 1) % images.length;
+
+                // Se estiver na última imagem, volta para a primeira
+                if (currentIndex === 0) {
+                    currentIndex = 0;
+                }
+
+                // Aumenta gradualmente o volume
+                if (volume < 1.0) {
+                    volume += 0.1;
+                    backgroundMusic.volume = volume.toFixed(1);
+                }
+            }
+
+            // Adiciona um ouvinte de clique ao corpo
+            document.body.addEventListener('click', function () {
+                // Inicia a música e define o volume inicial
+                var randomMusicIndex = Math.floor(Math.random() * 4) + 1; // Gera um número aleatório entre 1 e 4
+                backgroundMusic.src = 'msc' + randomMusicIndex + '.mp3';
+
+                backgroundMusic.volume = volume.toFixed(0.9);
+                backgroundMusic.play();
+
+                // Remove o ouvinte de clique para que a música não seja reiniciada a cada clique
+                document.body.removeEventListener('click', arguments.callee);
+            });
+
+            setInterval(eventLoaded, 2000);
+        });
+    </script>
+
+</body>
+
+</html>
